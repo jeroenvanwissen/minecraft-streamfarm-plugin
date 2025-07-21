@@ -1,0 +1,6 @@
+client_id: "your_twitch_client_id_here"
+client_secret: "your_twitch_client_secret_here"
+channel_name: "your_twitch_channel_name_here"
+refresh_token: "your_twitch_refresh_token_here"
+# DO NOT manually edit the access_token, leave empty. It will be overwritten
+access_token: "your_twitch_access_token_here"
