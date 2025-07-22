@@ -22,7 +22,7 @@ class TwitchEventHandler(
 
         // Initialize CommandRegistry with twitchClient
         nl.jeroenvanwissen.streamFarm.twitch.commands.CommandRegistry
-            .initialize(twitchClient)
+            .initialize(plugin, twitchClient)
 
         // Register Channel Message Event
         twitchClient.eventManager.onEvent(

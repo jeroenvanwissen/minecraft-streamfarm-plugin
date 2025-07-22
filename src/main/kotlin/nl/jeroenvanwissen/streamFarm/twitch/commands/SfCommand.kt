@@ -2,8 +2,10 @@ package nl.jeroenvanwissen.streamFarm.twitch.commands
 
 import com.github.twitch4j.TwitchClient
 import com.github.twitch4j.chat.events.channel.ChannelMessageEvent
+import org.bukkit.plugin.java.JavaPlugin
 
 class SfCommand(
+    private val plugin: JavaPlugin,
     override val twitchClient: TwitchClient,
 ) : Command<Map<String, Any>> {
     override val name = "sf"
@@ -23,10 +25,14 @@ class SfCommand(
         message: ChannelMessageEvent,
     ) {
         var respondChatMessage: String? = null
+        val userName = message.user.name
 
         when (params.first()) {
             "help" -> {
-                respondChatMessage = "@$message.user.name, help is on the way..."
+                respondChatMessage = "@${userName} Help is on the way..."
+            }
+            "link" -> {
+
             }
         }
 
