@@ -16,6 +16,8 @@ repositories {
     maven("https://oss.sonatype.org/content/groups/public/") {
         name = "sonatype"
     }
+
+    maven("https://jitpack.io")
 }
 
 dependencies {
@@ -25,6 +27,12 @@ dependencies {
 
     implementation("com.github.twitch4j:twitch4j:1.25.0")
     implementation("com.github.philippheuer.credentialmanager:credentialmanager:0.3.1")
+
+    compileOnly("com.github.Gypopo:EconomyShopGUI-API:1.8.0")
+    compileOnly("com.github.MilkBowl:VaultAPI:1.7") {
+        exclude(group = "org.bukkit", module = "bukkit")
+    }
+
 }
 
 configurations.all {

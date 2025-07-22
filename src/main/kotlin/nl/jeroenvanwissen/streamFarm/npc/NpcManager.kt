@@ -7,18 +7,22 @@ import org.bukkit.entity.EntityType
 import org.bukkit.entity.Villager
 import org.bukkit.persistence.PersistentDataType
 import org.bukkit.plugin.java.JavaPlugin
+import java.util.UUID
 
-class NpcManager (private val plugin: JavaPlugin) {
+class NpcManager(private val plugin: JavaPlugin) {
     private val npcTagKey = NamespacedKey(plugin, "custom_npc")
+    private val npcOwnerKey = NamespacedKey(plugin, "npc_owner")
 
     fun createCustomNpc(
         location: Location,
         name: String? = null,
-        profession: Villager.Profession? = null
+        profession: Villager.Profession? = null,
+        owner: UUID,
     ): Villager {
         val npc = location.world.spawnEntity(location, EntityType.VILLAGER) as Villager
 
         npc.persistentDataContainer.set(npcTagKey, PersistentDataType.BYTE, 1)
+        npc.persistentDataContainer.set(npcOwnerKey, PersistentDataType.STRING, owner.toString())
 
         if (!name.isNullOrEmpty()) {
             val uniqueName = generateUniqueName(name)
@@ -67,5 +71,10 @@ class NpcManager (private val plugin: JavaPlugin) {
         return plugin.server.worlds.flatMap { world ->
             world.livingEntities.filterIsInstance<Villager>().filter { isCustomNpc(it) }
         }
+    }
+
+    fun getOwnerOfNpc(villager: Villager): UUID? {
+        val str = villager.persistentDataContainer.get(npcOwnerKey, PersistentDataType.STRING)
+        return str?.let { runCatching { UUID.fromString(it) }.getOrNull() }
     }
 }

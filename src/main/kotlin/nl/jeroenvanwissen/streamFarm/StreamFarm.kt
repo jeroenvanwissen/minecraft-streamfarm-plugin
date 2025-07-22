@@ -1,5 +1,7 @@
 package nl.jeroenvanwissen.streamFarm
 
+import nl.jeroenvanwissen.streamFarm.npc.NpcManager
+import nl.jeroenvanwissen.streamFarm.npc.NpcProfessionTracker
 import nl.jeroenvanwissen.streamFarm.twitch.TwitchClientManager
 import nl.jeroenvanwissen.streamFarm.twitch.TwitchConfigManager
 import nl.jeroenvanwissen.streamFarm.twitch.TwitchEventHandler
@@ -9,6 +11,8 @@ class StreamFarm : JavaPlugin() {
     private lateinit var twitchConfigManager: TwitchConfigManager
     private lateinit var twitchClientManager: TwitchClientManager
     private lateinit var twitchEventHandler: TwitchEventHandler
+    private lateinit var npcManager: NpcManager
+    private lateinit var npcProfessionTracker: NpcProfessionTracker
 
     override fun onEnable() {
         initializeComponents()
@@ -30,5 +34,9 @@ class StreamFarm : JavaPlugin() {
         twitchEventHandler =
             TwitchEventHandler(this, twitchClientManager.getTwitchClient(), twitchConfigManager, twitchClientManager)
         twitchEventHandler.registerEventHandlers()
+
+        npcManager = NpcManager(this)
+        npcProfessionTracker = NpcProfessionTracker(this, npcManager)
+        npcProfessionTracker.init()
     }
 }

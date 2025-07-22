@@ -2,3 +2,4 @@ name: StreamFarm
 version: '1.0-SNAPSHOT'
 main: nl.jeroenvanwissen.streamFarm.StreamFarm
 api-version: '1.21'
+softdepend: [ EconomyShopGUI, Vault ]
